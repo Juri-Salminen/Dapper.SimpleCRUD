@@ -61,7 +61,8 @@ namespace Dapper
             if (Debugger.IsAttached)
                 Trace.WriteLine(String.Format("Get<{0}>: {1} with Id: {2}", currenttype, sb, id));
 
-            var query = await connection.QueryAsync<T>(sb.ToString(), dynParms, transaction, commandTimeout);
+            var sql = sb.ToString();
+            var query = await connection.QueryAsync<T>(sql, dynParms, transaction, commandTimeout);
             return query.FirstOrDefault();
         }
 
