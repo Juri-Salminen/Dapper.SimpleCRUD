@@ -12,7 +12,7 @@ namespace Dapper
     /// <summary>
     /// Main class for Dapper.SimpleCRUD extensions
     /// </summary>
-    public static partial class SimpleCRUD
+    public static partial class SimpleCrud
     {
         /// <summary>
         /// <para>By default queries the table matching the class name asynchronously </para>
@@ -244,7 +244,7 @@ namespace Dapper
         {
             if (typeof(TEntity).IsInterface) //FallBack to BaseType Generic Method : https://stackoverflow.com/questions/4101784/calling-a-generic-method-with-a-dynamic-type
             {
-                return await (Task<TKey>)typeof(SimpleCRUD)
+                return await (Task<TKey>)typeof(SimpleCrud)
                     .GetMethods().Where(methodInfo => methodInfo.Name == nameof(InsertAsync) && methodInfo.GetGenericArguments().Count() == 2).Single()
                     .MakeGenericMethod(new Type[] { typeof(TKey), entityToInsert.GetType() })
                     .Invoke(null, new object[] { connection, entityToInsert, transaction, commandTimeout });
@@ -327,7 +327,7 @@ namespace Dapper
         {
             if (typeof(TEntity).IsInterface) //FallBack to BaseType Generic Method : https://stackoverflow.com/questions/4101784/calling-a-generic-method-with-a-dynamic-type
             {
-                return await(Task<int>)typeof(SimpleCRUD)
+                return await(Task<int>)typeof(SimpleCrud)
                    .GetMethods().Where(methodInfo => methodInfo.Name == nameof(UpdateAsync) && methodInfo.GetGenericArguments().Count() == 1).Single()
                    .MakeGenericMethod(new Type[] { entityToUpdate.GetType() })
                    .Invoke(null, new object[] { connection, entityToUpdate, transaction, commandTimeout, token });
