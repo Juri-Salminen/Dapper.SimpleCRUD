@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -55,7 +56,11 @@ namespace Dapper
             else
             {
                 foreach (var prop in idProps)
-                    dynParms.Add("@" + prop.Name, id.GetType().GetProperty(prop.Name).GetValue(id, null));
+                {
+                    var propertyInfo = id.GetType().GetProperty(prop.Name);
+                    if(propertyInfo == null) continue;
+                    dynParms.Add("@" + prop.Name, propertyInfo.GetValue(id, null));
+                }
             }
 
             if (Debugger.IsAttached)
