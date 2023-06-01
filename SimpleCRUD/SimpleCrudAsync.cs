@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Dapper
 {
     /// <summary>
-    /// Main class for Dapper.SimpleCRUD extensions
+    /// Main class for SimpleCRUD extensions
     /// </summary>
     public static partial class SimpleCrud
     {
